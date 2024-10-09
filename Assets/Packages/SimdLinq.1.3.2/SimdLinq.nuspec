@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>SimdLinq</id>
+    <version>1.3.2</version>
+    <authors>Cysharp</authors>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <icon>Icon.png</icon>
+    <projectUrl>https://github.com/Cysharp/SimdLinq</projectUrl>
+    <description>Drop-in replacement of LINQ aggregation operations extremely faster with SIMD.</description>
+    <copyright>© Cysharp, Inc.</copyright>
+    <tags>linq</tags>
+    <repository type="git" url="https://github.com/Cysharp/SimdLinq" />
+    <dependencies>
+      <group targetFramework="net7.0" />
+    </dependencies>
+  </metadata>
+</package>
