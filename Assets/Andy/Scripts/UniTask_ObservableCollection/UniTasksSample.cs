@@ -22,7 +22,7 @@ public class UniTasksSample : MonoBehaviour
     {
         btn.onClick.AddListener(async () =>
         {
-            TempVoid();
+            TempVoid().Forget();
             print("k 0~0.5");
         });
     }
