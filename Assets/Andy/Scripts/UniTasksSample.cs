@@ -4,8 +4,8 @@ using System;
 using System.Collections.Specialized;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
+using R3;
 //
 //
 using UnityEngine;
@@ -80,7 +80,6 @@ public class UniTasksSample : MonoBehaviour
         // f += await GetScoreAsync();
         // f += await GetScoreAsync();
         print("數學算完了");
-        
     }
 
     private async void Test3()
@@ -186,5 +185,4 @@ public class UniTasksSample : MonoBehaviour
         f += await GetScoreAsync();
         f += await GetScoreAsync();
     }
-    
 }
