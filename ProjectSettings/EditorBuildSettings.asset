@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Andy/Scenes/LoadScene.unity
+    guid: d65da518fb545424489e3e975f4e403f
   m_configObjects: {}
