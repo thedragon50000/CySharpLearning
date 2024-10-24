@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Andy.MessagePipe.Scripts._0;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using MessagePipe;
@@ -36,7 +37,9 @@ namespace Andy.MessagePipe.Scripts._0
 
         public void ShowMessage(string message)
         {
-            text.text = message;
+            text.DOText(message,2.5f);
+            
+            // text.text = message;
         }
     }
 }
