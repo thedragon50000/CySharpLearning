@@ -10,10 +10,8 @@ namespace Zenject.Asteroids
         Rigidbody _rigidBody;
         Settings _settings;
 
-        // We could just add [Inject] to the field declarations but
-        // it's often better practice to use PostInject methods
-        // Note that we can't use Constructors here because this is
-        // a MonoBehaviour
+        // Note: 繼承 MonoBehaviour 的腳本，不能用建構子生成，這是Unity的規則
+        // 所以改用void 給參數
         [Inject]
         public void Construct(LevelHelper level, Settings settings)
         {
@@ -24,14 +22,14 @@ namespace Zenject.Asteroids
 
         public Vector3 Position
         {
-            get { return transform.position; }
-            set { transform.position = value; }
+            get => transform.position;
+            set => transform.position = value;
         }
 
         public float Mass
         {
-            get { return _rigidBody.mass; }
-            set { _rigidBody.mass = value; }
+            get => _rigidBody.mass;
+            set => _rigidBody.mass = value;
         }
 
         public float Scale
@@ -40,7 +38,7 @@ namespace Zenject.Asteroids
             {
                 var scale = transform.localScale;
                 // We assume scale is uniform
-                Assert.That(scale[0] == scale[1] && scale[1] == scale[2]);
+                Assert.That(scale[0] == scale[1] && scale[1] == scale[2]);  // todo: 這想表達啥??
 
                 return scale[0];
             }
@@ -53,8 +51,8 @@ namespace Zenject.Asteroids
 
         public Vector3 Velocity
         {
-            get { return _rigidBody.velocity; }
-            set { _rigidBody.velocity = value; }
+            get => _rigidBody.velocity;
+            set => _rigidBody.velocity = value;
         }
 
         public void FixedTick()

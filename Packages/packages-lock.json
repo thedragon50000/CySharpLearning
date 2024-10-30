@@ -37,6 +37,13 @@
       "dependencies": {},
       "url": "https://package.openupm.com"
     },
+    "com.rstartools.bookmarkeverything": {
+      "version": "https://github.com/L1247/bookmark-everything.git?path=BookmarkEverything/Assets/BookmarkEverything",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "f0b44fdb6d6caf6579d932eb3b1f5a106eaca936"
+    },
     "com.unity.collab-proxy": {
       "version": "2.5.2",
       "depth": 0,
