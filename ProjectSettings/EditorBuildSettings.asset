@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Andy/UniTask/Scenes/LoadScene.unity
     guid: d65da518fb545424489e3e975f4e403f
+  - enabled: 1
+    path: Assets/Andy/Zenject LoadScene/Scenes/firstScene.unity
+    guid: b1396e23ea46b9b48ab0ab15445333d6
+  - enabled: 1
+    path: Assets/Andy/Zenject LoadScene/Scenes/NextScene.unity
+    guid: 08ca0a57d6b331f42bab6250904fb69f
   m_configObjects: {}
