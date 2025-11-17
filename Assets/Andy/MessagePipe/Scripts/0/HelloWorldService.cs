@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
 using MessagePipe;
@@ -14,7 +12,7 @@ namespace Andy.MessagePipe.Scripts._0
         readonly ISubscriber<SendName_Signal> _startSubscriber;
 
         // 值有變動就觸發
-        readonly ReactiveProperty<string> _userNameRp = new();
+        private readonly ReactiveProperty<string> _userNameRp = new();
         public ReadOnlyReactiveProperty<string> UserNameProperty => _userNameRp;
 
         readonly CompositeDisposable _disposable = new();
@@ -25,10 +23,11 @@ namespace Andy.MessagePipe.Scripts._0
             _startSubscriber = startSubscriber;
         }
 
-        public void Initialize()        //start()
+        public void Initialize() //start()
         {
-            _startSubscriber.Subscribe(SayHello)
-                .AddTo(_disposable);
+            // Note: AddTo() 並不是 ISubscriber 的一部分，它也不來自 MessagePipe。它是一個來自 R3，專門針對 IDisposable 介面設計的工具。
+            //  因為 MessagePipe 恰好回傳了 IDisposable，所以 R3 的 AddTo() 就能夠無縫地作用在 MessagePipe 的訂閱結果上，實現跨函式庫的資源集中管理。這是一種非常優雅且常見的設計模式。
+            _startSubscriber.Subscribe(SayHello).AddTo(_disposable);
         }
 
         public void Dispose()

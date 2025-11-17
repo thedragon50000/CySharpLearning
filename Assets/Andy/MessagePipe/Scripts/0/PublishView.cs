@@ -31,7 +31,7 @@ namespace Andy.MessagePipe.Scripts._0
         {
             button.OnClickAsObservable()
                                     // 按下按鈕 發送一個string為 inputMessage 的SendName_Signal類給訂閱者
-                .Subscribe(_ => _startPublisher.Publish(new SendName_Signal() { UserName = inputMessage }))
+                .Subscribe(_ => _startPublisher.Publish(new SendName_Signal { UserName = inputMessage }))
                 .AddTo(this);
         }
 
