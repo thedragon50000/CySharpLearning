@@ -25,7 +25,7 @@ public class Subscriber : MonoBehaviour, IDisposable
         _subscriber.Subscribe(EnemiesNoticeYou).AddTo(_dispose);
     }
 
-    public void EnemiesNoticeYou(NoiseSingnal args)
+    private void EnemiesNoticeYou(NoiseSingnal args)
     {
         foreach (GameObject o in enemies)
         {
