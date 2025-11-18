@@ -9,19 +9,20 @@ using Random = UnityEngine.Random;
 
 namespace Andy.MessagePipe.Scripts._0.eroJiiJii
 {
-    public class Subscriber : MonoBehaviour,IDisposable
+    public class Subscriber : MonoBehaviour, IDisposable
     {
-        private readonly ISubscriber<PartyInvitation> _subscriber;
+        private ISubscriber<PartyInvitation> _subscriber;
 
         readonly CompositeDisposable _dispose = new();
-        List<Person> people = new();
+        [SerializeField] private List<Person> people = new();
 
-        public Subscriber(ISubscriber<PartyInvitation> subscriber)
+        [Inject]
+        public void Init(ISubscriber<PartyInvitation> subscriber)
         {
             _subscriber = subscriber;
         }
 
-        public void Start()
+        public void Awake()
         {
             SpawnPeople();
             _subscriber.Subscribe(InvitationHandler).AddTo(_dispose);
@@ -29,8 +30,18 @@ namespace Andy.MessagePipe.Scripts._0.eroJiiJii
 
         private void SpawnPeople()
         {
-            // todo: 總之生出20個人左右，存入people裡面
-            Random.Range(10, 50);
+            for (int i = 0; i < 20; i++)
+            {
+                int age = Random.Range(10, 25);
+                string sex = "male";
+                if (age % 2 == 0)
+                {
+                    sex = "female";
+                }
+
+                Person p = new Person(sex, age);
+                people.Add(p);
+            }
         }
 
         public void Dispose()
@@ -41,6 +52,16 @@ namespace Andy.MessagePipe.Scripts._0.eroJiiJii
         private void InvitationHandler(PartyInvitation invitation)
         {
             // todo: people 年紀過大的就不邀請
+            foreach (var p in people)
+            {
+                if (p.Sexual == invitation.Sexual)
+                {
+                    if (p.Age <= invitation.Age)
+                    {
+                        Debug.Log($"受邀，{p.Age}歲");
+                    }
+                }
+            }
         }
     }
 }
