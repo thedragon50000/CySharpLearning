@@ -18,8 +18,12 @@ namespace UniRxWorkBook.Operators
 
             // 下記のオペレータチェーンは2つのInputFieldに入力された数値を合計して表示するストリームを生成している
             // ただ、Zipでは挙動がおかしいので、Zipを適切なオペレータに変更しInputFiledの変更が即時反映されるようにしよう
+            
+            // leftStream
+            //     .Zip(rightStream, (left, right) => left + right)
+            //     .SubscribeToText(resultLabel);
             leftStream
-                .Zip(rightStream, (left, right) => left + right)
+                .CombineLatest(rightStream, (left, right) => left + right)
                 .SubscribeToText(resultLabel);
         }
     }

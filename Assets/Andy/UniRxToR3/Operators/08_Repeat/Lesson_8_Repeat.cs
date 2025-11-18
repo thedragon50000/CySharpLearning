@@ -20,12 +20,20 @@ namespace UniRxWorkBook.Operators
             // 
             // First()を外すだけではLeftとRightを連打した時の挙動が怪しいのでダメである
             // 適切なオペレータをFirstの後ろに入れよう
-            leftStream
-                .Zip(rightStream, (l, r) => Unit.Default)
-                // Warning: 這是分開計算的，所以按兩下左再按兩下右也會成功，應避免達成一次以上
-                .Take(2) //最多添加兩次"OK"
-                // ._____() 
-                .SubscribeToText(resultLabel, _ => resultLabel.text += "OK\n");
+            
+            var singleExecution = Observable.Zip(
+                leftStream,
+                rightStream,
+                (_, _) => resultLabel.text += "OK\n" // 在 SubscribeToText 之前就執行 side effect
+            ).Take(1);
+            
+            Observable.Concat(
+                    singleExecution, // 第一次執行
+                    singleExecution, // 第二次執行
+                    singleExecution // 第三次執行
+                )
+                .Subscribe() // 只需要 Subscribe 來啟動整個流程
+                .AddTo(this);
         }
     }
 }
