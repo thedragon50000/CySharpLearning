@@ -1,45 +1,34 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using Andy.Zenject_LoadScene.Scripts.Send;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Zenject;
-using R3;
-using UnityEngine.SceneManagement;
 
-public class SendHP2NextScene : MonoBehaviour
+namespace Andy.Zenject_LoadScene.Scripts
 {
-    public TMP_InputField InputField;
-    public Button btn;
-    public PlayerStats tempStat = new();
-    [Inject] public ZenjectSceneLoader SceneLoader;
-
-    void Start()
+    public class SendHp2NextScene : MonoBehaviour
     {
-        btn.onClick.AddListener(delegate
+        [FormerlySerializedAs("InputField")] public TMP_InputField inputField;
+        public Button btn;
+        public PlayerStats tempStat;
+        [Inject] public ZenjectSceneLoader SceneLoader;
+
+        void Start()
         {
-            float i = float.Parse(InputField.text);
-            tempStat.HpValue = i;
-            // Bug: container.BindInstance(tempStat) 抓不到正確的型別
-            // SceneLoader.LoadScene("NextScene", LoadSceneMode.Single, container => container.BindInstance(tempStat));
-            try
+            btn.onClick.AddListener(delegate
             {
-                SceneLoader.LoadScene("NextScene", LoadSceneMode.Single,
-                    container => container.Bind<PlayerStats>().FromInstance(tempStat));
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        });
-    }
+                float.TryParse(inputField.text, out var i);
+                // Note: [Serializable] 過了所以已經實例化了 
+                tempStat.HpValue = i;
+                // Note: container.BindInstance(tempStat) 的作用是讀取下一個場景的初始化階段時完成綁定
+                //  也就是說我們要 在A場景 決定 B場景的綁定，在B場景的Installer就綁定反而會導致重複綁定
+                SceneLoader.LoadScene(2, LoadSceneMode.Single, container => container.BindInstance(tempStat));
 
-    // Update is called once per frame
-    void Update()
-    {
+                //  Warning: 之前會成功只是因為 FromInstance 優先級太高會蓋掉其他tempStat的綁定，誤打誤撞的
+                // SceneLoader.LoadScene(2, LoadSceneMode.Single,
+                //     container => container.Bind<PlayerStats>().FromInstance(tempStat));
+            });
+        }
     }
 }

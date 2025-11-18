@@ -14,4 +14,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Andy/Zenject LoadScene/Scenes/NextScene.unity
     guid: 08ca0a57d6b331f42bab6250904fb69f
+  - enabled: 1
+    path: Assets/Andy/Zenject LoadScene1/Scenes/PreScene.unity
+    guid: c90d55675d38df2489c2c60056545ae6
+  - enabled: 1
+    path: Assets/Andy/Zenject LoadScene1/Scenes/LastScene.unity
+    guid: c7e73199b169c1a45a1f32a05f955e5a
   m_configObjects: {}
+  m_UseUCBPForAssetBundles: 0

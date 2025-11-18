@@ -16,8 +16,8 @@ namespace Andy.MessagePipe.Scripts._0
              */
 
             // Signal
-            var option = Container.BindMessagePipe();
             // Note: 將 SendName_Signal 「訊息結構」註冊到 Zenject 容器中，讓所有需要發送或接收這個訊號的腳本都能透過 Zenject 進行依賴注入 (DI)
+            var option = Container.BindMessagePipe();
             Container.BindMessageBroker<SendName_Signal>(option);
 
             // Service
