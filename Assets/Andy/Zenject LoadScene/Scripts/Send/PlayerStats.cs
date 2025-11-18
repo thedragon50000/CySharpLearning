@@ -1,17 +1,10 @@
 ﻿using System;
-using UnityEngine;
-using Zenject;
 
-namespace Andy.Zenject_LoadScene.Scripts.Send
+namespace Andy.Zenject_LoadScene.Scripts
 {
     [Serializable]
-    public class PlayerStats : IInitializable
+    public class PlayerStats 
     {
         public float HpValue = 0;
-
-        public void Initialize()
-        {
-            Debug.Log("PlayerStats created. ");
-        }
     }
 }

@@ -20,7 +20,7 @@ public class Publisher : MonoBehaviour
         _publisher = pub;
     }
 
-    private void Awake()
+    private void Start()
     {
         // 發送一個距離500內都會注意到的槍聲
         _publisher.Publish(new NoiseSingnal { Type = "槍聲", Distance = 500, Position = player.transform.position });

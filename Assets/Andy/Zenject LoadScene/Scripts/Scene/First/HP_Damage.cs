@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using Andy.Zenject_LoadScene.Scripts.Send;
 using UnityEngine;
 using R3;
 using DG.Tweening;
@@ -13,6 +12,9 @@ namespace Andy.Zenject_LoadScene.Scripts
     public class HpDamage : MonoBehaviour
     {
         [Inject] private PlayerStats _playerStats;
+        [Inject] private Tests tests;
+        private float temp;
+
         private readonly ReactiveProperty<float> _currentHp = new(0);
         public TMP_Text hpText;
         public int intDamageOrHeal;
@@ -28,12 +30,20 @@ namespace Andy.Zenject_LoadScene.Scripts
 
         private void Start()
         {
-            // 造成傷害或治癒
-            btn.onClick.AddListener(delegate()
+            tests.Sonzai();
+            _currentHp.Subscribe(_ =>
             {
-                DOTween.To(() => _currentHp.Value, x => _currentHp.Value = x, _currentHp.Value + intDamageOrHeal, 2f)
-                    .SetEase(Ease.InSine)
-                    .OnUpdate(() => hpText.text = _currentHp.Value.ToString());
+                DOTween.To(() => temp, x => temp = x, _currentHp.Value, 2f).SetEase(Ease.InSine).OnUpdate(() =>
+                {
+                    hpText.text = temp.ToString();
+                });
+            });
+
+            // 造成傷害或治癒
+            btn.onClick.AddListener(delegate
+            {
+                Debug.Log("onclick");
+                _currentHp.Value += intDamageOrHeal;
             });
         }
     }
