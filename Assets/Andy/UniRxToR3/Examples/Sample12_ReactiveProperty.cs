@@ -12,48 +12,49 @@ namespace UniRx.Examples
     public class Sample12_ReactiveProperty : MonoBehaviour
     {
         // Open Sample12Scene. Set from canvas
-        public Button MyButton;
-        public Toggle MyToggle;
-        public InputField MyInput;
-        public Text MyText;
-        public Slider MySlider;
+        public Button myButton;
+        public Toggle myToggle;
+        public InputField myInput;
+        public Text myText;
+        public Slider mySlider;
 
-        // You can monitor/modifie in inspector by SpecializedReactiveProperty
-        public ReactiveProperty<int> IntRxProp = new();
+        // You can monitor/modify in inspector by SpecializedReactiveProperty
+        private readonly ReactiveProperty<int> intRxProp = new();
 
-        Enemy enemy = new Enemy(1000);
+        private readonly Enemy enemy = new(1000);
 
         void Start()
         {
             // UnityEvent as Observable
             // (shortcut, MyButton.OnClickAsObservable())
-            MyButton.onClick.AsObservable().Subscribe(_ => enemy.CurrentHp.Value -= 99);
+            // myButton.onClick.AsObservable().Subscribe(_ => enemy.CurrentHp.Value -= 99);
+            myButton.OnClickAsObservable().Subscribe(_ => enemy.CurrentHp.Value -= 99);
 
             // Toggle, Input etc as Observable(OnValueChangedAsObservable is helper for provide isOn value on subscribe)
             // SubscribeToInteractable is UniRx.UI Extension Method, same as .interactable = x)
-            MyToggle.OnValueChangedAsObservable().SubscribeToInteractable(MyButton);
+            myToggle.OnValueChangedAsObservable().SubscribeToInteractable(myButton);
 
             // input shows delay after 1 second
 #if !(UNITY_4_6 || UNITY_4_7 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2)
-            MyInput.OnValueChangedAsObservable()
+            myInput.OnValueChangedAsObservable()
 #else
             MyInput.OnValueChangeAsObservable()
 #endif
                 .Where(x => x != null)
                 .Delay(TimeSpan.FromSeconds(1))
-                .SubscribeToText(MyText); // SubscribeToText is UniRx.UI Extension Method
+                .SubscribeToText(myText); // SubscribeToText is UniRx.UI Extension Method
 
             // converting for human visibility
-            MySlider.OnValueChangedAsObservable()
-                .SubscribeToText(MyText, x => Math.Round(x, 2).ToString());
+            mySlider.OnValueChangedAsObservable()
+                .SubscribeToText(myText, x => Math.Round(x, 2).ToString());
 
             // from RxProp, CurrentHp changing(Button Click) is observable
-            enemy.CurrentHp.SubscribeToText(MyText);
-            enemy.IsDead.Where(isDead => isDead == true)
-                .Subscribe(_ => { MyToggle.interactable = MyButton.interactable = false; });
+            enemy.CurrentHp.SubscribeToText(myText);
+            enemy.IsDead.Where(isDead => isDead)
+                .Subscribe(_ => { myToggle.interactable = myButton.interactable = false; });
 
             // initial text:)
-            IntRxProp.SubscribeToText(MyText);
+            intRxProp.SubscribeToText(myText);
         }
     }
 
