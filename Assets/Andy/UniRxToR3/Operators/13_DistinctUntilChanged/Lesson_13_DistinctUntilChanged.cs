@@ -13,7 +13,6 @@ namespace UniRxWorkBook
     {
         [SerializeField] private GameObject target;
         [SerializeField] private Text statusText;
-
         private void Start()
         {
             var controller = target.GetComponent<CharacterController>();
@@ -26,6 +25,7 @@ namespace UniRxWorkBook
             this.UpdateAsObservable()
                 .Select(_ => controller.isGrounded)
                 ._____()
+                .DistinctUntilChanged()
                 .Subscribe(isGrounded => StatusOutput(isGrounded));
         }
 

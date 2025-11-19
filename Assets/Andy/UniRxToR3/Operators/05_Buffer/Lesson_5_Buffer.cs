@@ -22,13 +22,16 @@ namespace UniRxWorkBook.Operators
             // _____()を書き換え、
             // 過去３回分の押されたボタンの履歴を表示してみよう
             // （３回押される度に更新される仕様で良い）
+            // Observable.Merge(aStream, bStream, cStream)
+            //     ._____()
+            //     .SubscribeToText(resultLabel, x => x);
+            
             Observable.Merge(aStream, bStream, cStream)
-                ._____()
-                .SubscribeToText(resultLabel, x => x);
+                .Chunk(3)
+                .SubscribeToText(resultLabel, x => x.Aggregate((p, c) => p + c));
 
             // IEnmerable<String>を１つのStringに合成するなら
             // strings.Aggregate((p, c) => p + c) とAggregateを使うと簡単に書ける
         }
-
     }
 }

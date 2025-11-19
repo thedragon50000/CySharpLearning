@@ -10,7 +10,8 @@ using Cysharp.Threading.Tasks;
 
 namespace UniRx.Examples
 {
-    /*Note: R3沒有這東西*/
+    /*Note: R3沒有這東西
+        在 R3 中，處理 Unity Web 請求 (WWW/UnityWebRequest) 和其他複雜的非同步操作，最主流且官方推薦的做法是使用 UniTask 函式庫，並將其結果轉換為 IObservable。*/
     // sample script, attach your object.
     // public class Sample01_ObservableWWW : MonoBehaviour
     // {

@@ -745,7 +745,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plane: {fileID: 979338772}
-  prefabBoom: {fileID: 100002, guid: 93a60ba8e409947b1a0334537c8b38c8, type: 3}
 --- !u!1 &2010561229
 GameObject:
   m_ObjectHideFlags: 0

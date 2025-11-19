@@ -1,6 +1,8 @@
+using R3;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
+using R3.Triggers;
 
 namespace Andy.Zenject_LoadScene1.Scripts
 {
@@ -10,21 +12,24 @@ namespace Andy.Zenject_LoadScene1.Scripts
 
         [Inject] ZenjectSceneLoader sceneLoader;
 
-        void Update()
+        private void Start()
         {
-            if (Input.GetKeyDown(KeyCode.F))
+            this.UpdateAsObservable().Subscribe(_ =>
             {
-                Debug.Log("毀了飛機！");
+                if (Input.GetKeyDown(KeyCode.F))
+                {
+                    Debug.Log("毀了飛機！");
 
-                plane.SetActive(false);
-            }
+                    plane.SetActive(false);
+                }
 
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                bool b = plane.activeSelf;
-                LastSceneSettings settings = new LastSceneSettings(b);
-                sceneLoader.LoadScene("lastScene", LoadSceneMode.Single, container => container.BindInstance(settings));
-            }
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    bool b = plane.activeSelf;
+                    LastSceneSettings settings = new LastSceneSettings(b);
+                    sceneLoader.LoadScene("lastScene", LoadSceneMode.Single, container => container.BindInstance(settings));
+                }
+            });
         }
     }
 }

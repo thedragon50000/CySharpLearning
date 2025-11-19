@@ -12,8 +12,8 @@ namespace UniRx.Examples
         {
             // All events can subscribe by ***AsObservable if enables UniRx.Triggers
             this.OnMouseDownAsObservable()
-                .SelectMany(_ => this.gameObject.UpdateAsObservable())
-                .TakeUntil(this.gameObject.OnMouseUpAsObservable())
+                .SelectMany(_ => gameObject.UpdateAsObservable())
+                .TakeUntil(gameObject.OnMouseUpAsObservable())
                 .Select(_ => Input.mousePosition)
                 .Subscribe(x => Debug.Log(x), done=> Debug.Log("!!!" + "complete"));
         }

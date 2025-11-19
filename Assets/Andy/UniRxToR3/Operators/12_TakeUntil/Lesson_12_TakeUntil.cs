@@ -3,6 +3,7 @@ using System.Collections;
 using System.Runtime.InteropServices;
 using R3;
 using R3.Triggers;
+using UnityEditor.SpeedTree.Importer;
 using UnityEngine.UI;
 
 namespace UniRxWorkBook.Operators
@@ -23,11 +24,13 @@ namespace UniRxWorkBook.Operators
 
             this.UpdateAsObservable()
                 .SkipUntil(onStream)
-                .TakeUntil(offStream)
+                // .TakeUntil(offStream)
                 ._____()
-                .Subscribe(_ => RotateCube())
+                .Subscribe(_ =>
+                {
+                    RotateCube();
+                })
                 .AddTo(gameObject);
-
         }
 
         private void RotateCube()

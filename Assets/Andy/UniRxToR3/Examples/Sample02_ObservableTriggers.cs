@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using R3.Triggers; // Triggers Namepsace
-using System;
+// using System;
 using R3;
 
 namespace UniRx.Examples
@@ -12,12 +12,14 @@ namespace UniRx.Examples
             // Get the plain object
             var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
 
-            // Add ObservableXxxTrigger for handle MonoBehaviour's event as Observable
-            cube.AddComponent<ObservableUpdateTrigger>()
-                .UpdateAsObservable()
-                // .SampleFrame(30)
-                .ThrottleLastFrame(30)
-                .Subscribe(x => Debug.Log("cube"), done => Debug.Log("destroy"));
+            cube.UpdateAsObservable().ThrottleLastFrame(30).Subscribe(x => Debug.Log("cube"), done => Debug.Log("destroy")).AddTo(cube);
+            
+            // // Add ObservableXxxTrigger for handle MonoBehaviour's event as Observable
+            // cube.AddComponent<ObservableUpdateTrigger>()
+            //     .UpdateAsObservable()
+            //     // .SampleFrame(30)
+            //     .ThrottleLastFrame(30)
+            //     .Subscribe(x => Debug.Log("cube"), done => Debug.Log("destroy"));
 
             // destroy after 3 second:)
             GameObject.Destroy(cube, 3f);

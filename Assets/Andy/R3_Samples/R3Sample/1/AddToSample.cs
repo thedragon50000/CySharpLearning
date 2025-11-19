@@ -9,6 +9,7 @@ namespace Samples.R3Sample
     {
         [SerializeField] private GameObject childObject;
         [SerializeField] private bool bDestroyChild;
+        CompositeDisposable disposables = new CompositeDisposable();
 
         private void Start()
         {
