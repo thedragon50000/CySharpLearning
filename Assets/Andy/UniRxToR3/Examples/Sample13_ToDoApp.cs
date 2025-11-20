@@ -12,6 +12,7 @@ using Cysharp.Threading.Tasks;
 using ObservableCollections;
 using System.Collections;
 using System.Threading.Tasks;
+using R3.Triggers;
 using UnityEngine.EventSystems;
 
 namespace UniRx.Examples
