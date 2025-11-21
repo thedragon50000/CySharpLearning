@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using Game.Protocol.Bingo;
 using MessagePipe;
 using R3;
 using Zenject;
@@ -9,7 +10,7 @@ namespace Andy.MessagePipe.Scripts._0
     public class HelloWorldService : IInitializable, IDisposable
     {
         // 訂閱者
-        readonly ISubscriber<SendName_Signal> _startSubscriber;
+        readonly ISubscriber<BingoBoard> _startSubscriber;
 
         // 值有變動就觸發
         private readonly ReactiveProperty<string> _userNameRp = new();
@@ -18,7 +19,7 @@ namespace Andy.MessagePipe.Scripts._0
         readonly CompositeDisposable _disposable = new();
 
         [Inject]
-        public HelloWorldService(ISubscriber<SendName_Signal> startSubscriber) //建構注入
+        public HelloWorldService(ISubscriber<BingoBoard> startSubscriber) //建構注入
         {
             _startSubscriber = startSubscriber;
         }
@@ -35,10 +36,11 @@ namespace Andy.MessagePipe.Scripts._0
             _disposable.Dispose();
         }
 
-        void SayHello(SendName_Signal args)
+        void SayHello(BingoBoard board)
         {
-            Debug.Log($"Hello {args.UserName}!");
-            _userNameRp.Value = $"Hello {args.UserName}!";
+            // Debug.Log($"Hello {board.BoardNumbers}!");
+            Debug.Log($"BoardNumbers: {board.BoardNumbers}");
+            _userNameRp.Value = $"board.BoardNumbers[5] = {board.BoardNumbers[5]}";
         }
     }
 }
