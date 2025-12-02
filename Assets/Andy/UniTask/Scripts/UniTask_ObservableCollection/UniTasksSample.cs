@@ -18,24 +18,28 @@ public class UniTasksSample : MonoBehaviour
     public Button btn;
     public float f = 0;
 
-    private void Awake()
+    // ReSharper disable once Unity.IncorrectMethodSignature
+    private async UniTaskVoid Awake()
     {
         btn.onClick.AddListener(async () =>
         {
             TempVoid().Forget();
-            print("k 0~0.5");
+            await TempVoid();
+            print("C");
         });
+        
     }
 
     // Note: UniTaskVoid 只管觸發不能await，適用於按鈕
-    private async UniTaskVoid TempVoid()
+    private async UniTask TempVoid()
     {
-        print("k 0");
+        print("A");
         await UniTask.Delay(500);
-        print("k 0.5");
+        print("B");
+        await UniTask.DelayFrame(100);
     }
-
-    void Start()
+    
+    async UniTaskVoid Start()
     {
         _gameObjects = new ObservableCollection<GameObject>();
 
@@ -45,6 +49,7 @@ public class UniTasksSample : MonoBehaviour
 
         // Test();
         // Test2();
+        await UniTask.Delay(100);
         Test3();
     }
 
